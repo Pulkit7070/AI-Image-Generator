@@ -1,76 +1,103 @@
 # AI Image Generator
 
-## Overview
-This project is an AI-powered image generator that utilizes the Stability AI model via the Hugging Face API. Users can enter a text prompt, and the application will generate an image based on that prompt. The project is built using Flask for the backend and a simple HTML/CSS/JavaScript frontend.
+This is an AI-powered image generator using the **Stable Diffusion XL** model from Hugging Face. The application consists of:
+- A **Flask web app** (`app.py`) for generating images via a web interface.
+- A **standalone script** (`image_generation.py`) for generating images directly from the command line.
 
 ## Features
-- Text-based prompt input for image generation
-- Uses Stability AI's Stable Diffusion XL model hosted on Hugging Face
-- Generates and saves images locally
-- Displays generated images on the frontend
-- User-friendly interface
+- Generate AI images using text prompts
+- Automatically saves generated images
+- Secure API authentication using environment variables
+- Web-based and command-line interfaces
 
-## Technologies Used
-- Flask (Python)
-- Hugging Face API (Stable Diffusion XL Model)
-- HTML, CSS, JavaScript (Frontend UI)
-- Requests (for API calls)
+---
 
-## Installation
-### Prerequisites
-Make sure you have the following installed:
-- Python 3.x
-- Flask
-- Requests library
+## **Setup & Installation**
 
-### Setup
-1. Clone this repository:
-   ```bash
-   git clone <repository-url>
-   cd <repository-folder>
-   ```
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Create a folder for storing generated images:
-   ```bash
-   mkdir -p static/generated_images
-   ```
-4. Set up your Hugging Face API Key:
-   - Obtain an API key from [Hugging Face](https://huggingface.co/)
-   - Replace `api_key` in `app.py` with your own key
-
-## Usage
-1. Run the Flask app:
-   ```bash
-   python app.py
-   ```
-2. Open a browser and go to `http://127.0.0.1:5000/`
-3. Enter a text prompt and click "Generate Image"
-4. Wait for the AI to generate an image
-5. The generated image will be displayed and saved in `static/generated_images/`
-
-## Project Structure
-```
-/ai-image-generator
-│── static/
-│   ├── generated_images/   # Stores generated images
-│── templates/
-│   ├── index.html          # Frontend UI
-│── app.py                  # Flask backend
-│── requirements.txt        # Python dependencies
-│── README.md               # Project documentation
+### **1. Clone the Repository**
+```bash
+git clone https://github.com/Pulkit7070/AI-Image-Generator.git
+cd AI-Image-Generator
 ```
 
-## API Endpoint
-- **POST `/generate-image`**
-  - **Request Body:** `{ "prompt": "Your image description here" }`
-  - **Response:** `{ "success": true, "image_url": "/static/generated_images/image_name.png" }`
+### **2. Create a Virtual Environment (Optional but Recommended)**
+```bash
+python -m venv venv
+source venv/bin/activate  # Mac/Linux
+venv\Scripts\activate    # Windows
+```
 
-## License
-This project is open-source and free to use.
+### **3. Install Dependencies**
+```bash
+pip install -r requirements.txt
+```
 
-## Author
-Developed by Pulkit. Feel free to contribute or report issues!
+### **4. Set Up Environment Variables**
+To keep your Hugging Face API key secure, store it as an environment variable.
+
+#### **For Windows (Command Prompt):**
+```cmd
+set HUGGINGFACE_API_KEY=your_secret_token
+```
+
+#### **For Mac/Linux (Terminal):**
+```bash
+export HUGGINGFACE_API_KEY="your_secret_token"
+```
+
+---
+
+## **Usage**
+
+### **1. Running the Flask Web App**
+```bash
+python app.py
+```
+- Open `http://127.0.0.1:5000/` in your browser.
+- Enter a text prompt to generate an image.
+- The image will be saved inside the `static/generated_images/` folder.
+
+### **2. Using the Standalone Script**
+Run the script to generate an image from the command line:
+```bash
+python image_generation.py
+```
+- Enter a prompt when prompted.
+- The generated image will be saved in the same directory as the script.
+
+---
+
+## **Security & API Key Protection**
+### **⚠️ Important: Do NOT Hardcode API Keys in Your Code**
+Your Hugging Face API key should be set using environment variables instead of being hardcoded into the scripts. If you accidentally commit a secret:
+
+```bash
+git rm --cached app.py image_generation.py
+git commit --amend --no-edit
+git push origin main --force
+```
+
+If GitHub still blocks the push due to past commits, use:
+```bash
+git filter-repo --path app.py --path image_generation.py --invert-paths
+```
+Then push again:
+```bash
+git add .
+git commit -m "Removed API key and updated security"
+git push origin main
+```
+
+---
+
+## **License**
+This project is licensed under the **MIT License**.
+
+---
+
+## **Contributing**
+Feel free to fork the repo and submit pull requests with improvements.
+
+### **Contact**
+For any issues, open an issue on GitHub or contact me via [GitHub](https://github.com/Pulkit7070).
 
